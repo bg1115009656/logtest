@@ -1,7 +1,7 @@
 package com.gbai.log.factory;
 
-import com.gbai.dao.LoginLogMapper;
-import com.gbai.dao.OperationLogMapper;
+import com.gbai.dao.LoginLogDao;
+import com.gbai.dao.OperationLogDao;
 import com.gbai.db.Db;
 import com.gbai.entity.LoginLog;
 import com.gbai.entity.OperationLog;
@@ -21,8 +21,8 @@ import java.util.TimerTask;
 public class LogTaskFactory {
 
     private static Logger logger = LoggerFactory.getLogger(LogManager.class);
-    private static LoginLogMapper loginLogMapper = Db.getMapper(LoginLogMapper.class);
-    private static OperationLogMapper operationLogMapper = Db.getMapper(OperationLogMapper.class);
+    private static LoginLogDao loginLogMapper = Db.getMapper(LoginLogDao.class);
+    private static OperationLogDao operationLogMapper = Db.getMapper(OperationLogDao.class);
 
     public static TimerTask loginLog(final Integer userId, final String ip) {
         return new TimerTask() {

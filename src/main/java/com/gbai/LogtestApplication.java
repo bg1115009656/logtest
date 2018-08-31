@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @MapperScan(basePackages = {"com.gbai.dao"})
-@ComponentScan(basePackages = {"com.gbai.filter"})
+//@ComponentScan(basePackages = {"com.gbai.filter"})
 public class LogtestApplication {
 
     public static void main(String[] args) {

@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/log?characterEncoding=utf8&useSSL=true&allowMultiQueries=true

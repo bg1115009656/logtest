@@ -13,7 +13,7 @@
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <!--encoder 默认配置为PatternLayoutEncoder-->
             <encoder>
-                <pattern>===%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
                 <charset>utf-8</charset>
             </encoder>
         </appender>
@@ -22,7 +22,7 @@
             <appender-ref ref="STDOUT"/>
         </root>
 
-        <logger name="com.gbai" level="debug" additivity="false">
+        <logger name="com.gbai" level="info" additivity="false">
             <appender-ref ref="STDOUT"/>
         </logger>
 

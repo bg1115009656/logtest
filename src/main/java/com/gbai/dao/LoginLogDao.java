@@ -14,7 +14,7 @@ import java.util.Map;
  * </p>
  *
  */
-public interface LoginLogMapper extends BaseMapper<LoginLog> {
+public interface LoginLogDao extends BaseMapper<LoginLog> {
 
     /**
      * 获取登录日志

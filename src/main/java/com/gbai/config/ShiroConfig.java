@@ -25,17 +25,14 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.DelegatingFilterProxy;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -49,30 +46,28 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Autowired
-    private ShiroFormAuthenticationFilter shiroFormAuthenticationFilter;
 
-/*    @Bean("sessionManager")
-    public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
-                                         @Value("${log.redis.open}") boolean redisOpen,
-                                         @Value("${log.shiro.redis}") boolean shiroRedis){
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
-        sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionIdUrlRewritingEnabled(false);
-
-        //如果开启redis缓存且renren.shiro.redis=true，则shiro session存到redis里
-        if(redisOpen && shiroRedis){
-            sessionManager.setSessionDAO(redisShiroSessionDAO);
-        }
-        return sessionManager;
-    }*/
+//   @Bean("sessionManager")
+//    public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
+//                                         @Value("${logs.redis.open}") boolean redisOpen,
+//                                         @Value("${logs.shiro.redis}") boolean shiroRedis){
+//        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+//        //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
+//        sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
+//        sessionManager.setSessionValidationSchedulerEnabled(true);
+//        sessionManager.setSessionIdUrlRewritingEnabled(false);
+//
+//        //如果开启redis缓存且renren.shiro.redis=true，则shiro session存到redis里
+//        if(redisOpen && shiroRedis){
+//            sessionManager.setSessionDAO(redisShiroSessionDAO);
+//        }
+//        return sessionManager;
+//    }
 
     @Bean
     public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
-                                         @Value("${log.redis.open}") boolean redisOpen,
-                                         @Value("${log.shiro.redis}") boolean shiroRedis) {
+                                         @Value("${logs.redis.open}") boolean redisOpen,
+                                         @Value("${logs.shiro.redis}") boolean shiroRedis) {
         MySessionManager mySessionManager = new MySessionManager();
         //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
         mySessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
@@ -98,10 +93,10 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
-//        shiroFilter.setLoginUrl("/login.html");
-//        shiroFilter.setUnauthorizedUrl("/");
+        shiroFilter.setLoginUrl("/user/login");
+        shiroFilter.setUnauthorizedUrl("/");
         Map<String,Filter> filters = new HashMap<>();
-        filters.put("authc",shiroFormAuthenticationFilter);
+        filters.put("authc",new FormAuthenticationFilter());
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/swagger/**", "anon");
@@ -112,7 +107,7 @@ public class ShiroConfig {
 
         filterMap.put("/statics/**", "anon");
         filterMap.put("/login.html", "anon");
-        filterMap.put("/sys/login", "anon");
+        filterMap.put("/user/**", "anon");
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/captcha.jpg", "anon");
         filterMap.put("/**", "authc");

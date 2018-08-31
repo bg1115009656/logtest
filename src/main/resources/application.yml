@@ -1,5 +1,8 @@
 server:
   port: 8081
+spring:
+  profiles:
+    active: dev
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
@@ -30,14 +33,12 @@ mybatis-plus:
     cache-enabled: false
     call-setters-on-nulls: true
 
-log:
+logs:
   redis:
     open: false  # 是否开启redis缓存  true开启   false关闭
   shiro:
     redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
 log:
   path: C://logs
-spring:
-  profiles:
-    active: dev
+
 

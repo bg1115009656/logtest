@@ -16,6 +16,7 @@
 
 package com.gbai.config;
 
+import com.gbai.filter.ShiroFormAuthenticationFilter;
 import com.gbai.xss.XssFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 
 /**
  * Filter配置
@@ -53,4 +55,6 @@ public class FilterConfig {
         registration.setOrder(Integer.MAX_VALUE);
         return registration;
     }
+
+
 }

@@ -14,7 +14,7 @@ import java.util.Map;
  * </p>
  *
  */
-public interface OperationLogMapper extends BaseMapper<OperationLog> {
+public interface OperationLogDao extends BaseMapper<OperationLog> {
 
     /**
      * 获取操作日志
