@@ -61,9 +61,6 @@ public class ToolUtil {
     /**
      * 获取异常的具体信息
      *
-     * @author fengshuonan
-     * @Date 2017/3/30 9:21
-     * @version 2.0
      */
     public static String getExceptionMsg(Exception e) {
         StringWriter sw = new StringWriter();
