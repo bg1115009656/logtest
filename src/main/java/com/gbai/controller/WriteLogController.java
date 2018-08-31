@@ -1,6 +1,7 @@
 package com.gbai.controller;
 
 import com.gbai.annotation.BussinessLog;
+import com.gbai.tips.Result;
 import com.gbai.tips.SuccessTip;
 import com.gbai.tips.Tip;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class WriteLogController {
     @BussinessLog(value = "获取用户列表",descr = "测试获取用户列表")
     @GetMapping("/getUser")
     public Tip getUser(){
-        return new SuccessTip();
+        return Result.success();
     }
 
 }
