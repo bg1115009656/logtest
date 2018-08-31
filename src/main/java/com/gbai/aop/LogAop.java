@@ -1,6 +1,7 @@
 package com.gbai.aop;
 
 import com.gbai.annotation.BussinessLog;
+import com.gbai.entity.SysUserEntity;
 import com.gbai.log.LogManager;
 import com.gbai.log.factory.LogTaskFactory;
 import com.gbai.shiro.ShiroKit;
@@ -60,7 +61,7 @@ public class LogAop {
         String methodName = currentMethod.getName();
 
         //如果当前用户未登录，不做日志
-        ShiroUser user = ShiroKit.getUser();
+        SysUserEntity user = ShiroKit.getUser();
         if (null == user) {
             return;
         }
@@ -81,6 +82,6 @@ public class LogAop {
         }
         String msg = annotation.descr();
 
-        LogManager.me().executeLog(LogTaskFactory.bussinessLog(user.getId(), bussinessName, className, methodName, msg));
+        LogManager.me().executeLog(LogTaskFactory.bussinessLog(user.getUserId(), bussinessName, className, methodName, msg));
     }
 }

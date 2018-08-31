@@ -24,7 +24,7 @@ public class LogTaskFactory {
     private static LoginLogDao loginLogMapper = Db.getMapper(LoginLogDao.class);
     private static OperationLogDao operationLogMapper = Db.getMapper(OperationLogDao.class);
 
-    public static TimerTask loginLog(final Integer userId, final String ip) {
+    public static TimerTask loginLog(final Long userId, final String ip) {
         return new TimerTask() {
             @Override
             public void run() {
@@ -53,7 +53,7 @@ public class LogTaskFactory {
         };
     }
 
-    public static TimerTask exitLog(final Integer userId, final String ip) {
+    public static TimerTask exitLog(final Long userId, final String ip) {
         return new TimerTask() {
             @Override
             public void run() {
@@ -67,7 +67,7 @@ public class LogTaskFactory {
         };
     }
 
-    public static TimerTask bussinessLog(final Integer userId, final String bussinessName, final String clazzName, final String methodName, final String msg) {
+    public static TimerTask bussinessLog(final Long userId, final String bussinessName, final String clazzName, final String methodName, final String msg) {
         return new TimerTask() {
             @Override
             public void run() {
@@ -82,7 +82,7 @@ public class LogTaskFactory {
         };
     }
 
-    public static TimerTask exceptionLog(final Integer userId, final Exception exception) {
+    public static TimerTask exceptionLog(final Long userId, final Exception exception) {
         return new TimerTask() {
             @Override
             public void run() {

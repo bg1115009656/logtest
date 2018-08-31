@@ -94,9 +94,9 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
         shiroFilter.setLoginUrl("/user/login");
-        shiroFilter.setUnauthorizedUrl("/");
+//        shiroFilter.setUnauthorizedUrl("/");
         Map<String,Filter> filters = new HashMap<>();
-        filters.put("authc",new FormAuthenticationFilter());
+        filters.put("authc",new ShiroFormAuthenticationFilter());
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/swagger/**", "anon");
@@ -107,7 +107,7 @@ public class ShiroConfig {
 
         filterMap.put("/statics/**", "anon");
         filterMap.put("/login.html", "anon");
-        filterMap.put("/user/**", "anon");
+        filterMap.put("/user/login", "anon");
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/captcha.jpg", "anon");
         filterMap.put("/**", "authc");

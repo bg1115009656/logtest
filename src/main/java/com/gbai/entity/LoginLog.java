@@ -31,7 +31,7 @@ public class LoginLog extends Model<LoginLog> {
     /**
      * 管理员id
      */
-	private Integer userid;
+	private Long userid;
     /**
      * 创建时间
      */
@@ -66,11 +66,11 @@ public class LoginLog extends Model<LoginLog> {
 		this.logname = logname;
 	}
 
-	public Integer getUserid() {
+	public Long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 

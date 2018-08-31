@@ -15,6 +15,7 @@
  */
 package com.gbai.shiro;
 
+import com.gbai.entity.SysUserEntity;
 import com.gbai.util.ToolUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -79,11 +80,11 @@ public class ShiroKit {
      *
      * @return ShiroUser
      */
-    public static ShiroUser getUser() {
+    public static SysUserEntity getUser() {
         if (isGuest()) {
             return null;
         } else {
-            return (ShiroUser) getSubject().getPrincipals().getPrimaryPrincipal();
+            return (SysUserEntity) getSubject().getPrincipals().getPrimaryPrincipal();
         }
     }
 
