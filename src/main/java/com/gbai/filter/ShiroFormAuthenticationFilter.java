@@ -20,7 +20,6 @@ import static com.gbai.tips.TipEnum.NO_LOGIN;
  * @author: gbai
  * @create: 2018-08-30 09:54
  **/
-@Component
 public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
     private static final Logger log = LoggerFactory.getLogger(ShiroFormAuthenticationFilter.class);
 

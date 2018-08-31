@@ -13,7 +13,6 @@ import java.io.IOException;
  * @author: gbai
  * @create: 2018-08-30 11:02
  **/
-@Component
 public class ShiroPermissionAuthorizationFilter extends PermissionsAuthorizationFilter {
 
     @Override

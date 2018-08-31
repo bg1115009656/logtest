@@ -17,6 +17,7 @@
 package com.gbai.config;
 
 import com.gbai.filter.ShiroFormAuthenticationFilter;
+import com.gbai.shiro.MySessionManager;
 import com.gbai.shiro.RedisShiroSessionDAO;
 import com.gbai.shiro.UserRealm;
 import org.apache.shiro.mgt.SecurityManager;
@@ -48,15 +49,13 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Bean
-    public  ShiroFormAuthenticationFilter getShiroFormAuthenticationFilter(){
-        return new ShiroFormAuthenticationFilter();
-    }
+    @Autowired
+    private ShiroFormAuthenticationFilter shiroFormAuthenticationFilter;
 
-    @Bean("sessionManager")
+/*    @Bean("sessionManager")
     public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
-                                         @Value("${renren.redis.open}") boolean redisOpen,
-                                         @Value("${renren.shiro.redis}") boolean shiroRedis){
+                                         @Value("${log.redis.open}") boolean redisOpen,
+                                         @Value("${log.shiro.redis}") boolean shiroRedis){
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
         sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
@@ -68,8 +67,24 @@ public class ShiroConfig {
             sessionManager.setSessionDAO(redisShiroSessionDAO);
         }
         return sessionManager;
-    }
+    }*/
 
+    @Bean
+    public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
+                                         @Value("${log.redis.open}") boolean redisOpen,
+                                         @Value("${log.shiro.redis}") boolean shiroRedis) {
+        MySessionManager mySessionManager = new MySessionManager();
+        //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
+        mySessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
+        mySessionManager.setSessionValidationSchedulerEnabled(true);
+        mySessionManager.setSessionIdUrlRewritingEnabled(false);
+
+        //如果开启redis缓存且renren.shiro.redis=true，则shiro session存到redis里
+        if(redisOpen && shiroRedis){
+            mySessionManager.setSessionDAO(redisShiroSessionDAO);
+        }
+        return mySessionManager;
+    }
     @Bean("securityManager")
     public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -86,7 +101,7 @@ public class ShiroConfig {
 //        shiroFilter.setLoginUrl("/login.html");
 //        shiroFilter.setUnauthorizedUrl("/");
         Map<String,Filter> filters = new HashMap<>();
-        filters.put("authc",getShiroFormAuthenticationFilter());
+        filters.put("authc",shiroFormAuthenticationFilter);
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/swagger/**", "anon");

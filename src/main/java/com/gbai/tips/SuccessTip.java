@@ -6,9 +6,10 @@ package com.gbai.tips;
  */
 public class SuccessTip extends Tip {
 	
-	public SuccessTip(){
-		super.code = 200;
-		super.message = "操作成功";
+	public SuccessTip(TipEnum tipEnum,Object obj){
+		super.code = tipEnum.getCode();
+		super.message = tipEnum.getMessage();
+		super.data = obj ;
 	}
 
 }

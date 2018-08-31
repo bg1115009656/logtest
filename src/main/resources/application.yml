@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
@@ -30,7 +30,7 @@ mybatis-plus:
     cache-enabled: false
     call-setters-on-nulls: true
 
-renren:
+log:
   redis:
     open: false  # 是否开启redis缓存  true开启   false关闭
   shiro:

@@ -6,8 +6,8 @@ package com.gbai.tips;
 public enum TipEnum {
 
     SUCCESS(200,"处理成功"),
-    NO_LOGIN(200,"登录已过期,请重新登录");
-
+    NO_LOGIN(200,"登录已过期,请重新登录"),
+    FAIL(400,"处理失败");
     private Integer code;
 
     private String message;
